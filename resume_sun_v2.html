@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>孙晓燕 - 简历（优化版）</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @page { size: A4; margin: 0; }
+  html, body {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Source Han Sans CN", sans-serif;
+    color: #2c3e50;
+    font-size: 10pt;
+    line-height: 1.5;
+    background: #fff;
+  }
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 9mm 14mm;
+    background: #fff;
+  }
+
+  /* Header */
+  .header {
+    border-bottom: 3px solid #1e3a5f;
+    padding-bottom: 8px;
+    margin-bottom: 9px;
+  }
+  .name-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 4px;
+  }
+  .name {
+    font-size: 26pt;
+    font-weight: 700;
+    color: #1e3a5f;
+    letter-spacing: 6px;
+  }
+  .name-tag {
+    font-size: 10pt;
+    color: #c0392b;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .target {
+    font-size: 10.5pt;
+    color: #1e3a5f;
+    font-weight: 600;
+    margin-bottom: 7px;
+    letter-spacing: 0.5px;
+  }
+  .contact-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    font-size: 9.5pt;
+    color: #555;
+  }
+  .contact-row span { display: inline-flex; align-items: center; }
+  .contact-row .label {
+    color: #1e3a5f;
+    font-weight: 600;
+    margin-right: 4px;
+  }
+
+  /* 核心能力 标签 */
+  .skills-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 8px 0 0 0;
+  }
+  .tag {
+    background: #1e3a5f;
+    color: #fff;
+    font-size: 8.8pt;
+    padding: 2px 9px;
+    border-radius: 11px;
+    letter-spacing: 0.3px;
+    font-weight: 500;
+  }
+  .tag.alt { background: #c0392b; }
+  .tag.lite { background: #4a6b8a; }
+
+  /* Section */
+  .section { margin-bottom: 8px; }
+  .section-title {
+    font-size: 11pt;
+    font-weight: 700;
+    color: #fff;
+    background: #1e3a5f;
+    padding: 3px 12px;
+    margin-bottom: 6px;
+    border-radius: 2px;
+    letter-spacing: 4px;
+    display: inline-block;
+    min-width: 110px;
+  }
+  .section-body { padding: 0 4px; }
+
+  /* Self Intro */
+  .intro {
+    background: #f4f7fb;
+    border-left: 3px solid #1e3a5f;
+    padding: 7px 11px;
+    font-size: 9.7pt;
+    line-height: 1.65;
+    text-align: justify;
+  }
+  .intro b { color: #1e3a5f; }
+  .intro .hl { color: #c0392b; font-weight: 700; }
+
+  /* Job item */
+  .job-item { margin-bottom: 8px; }
+  .job-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 2px;
+    border-bottom: 1.5px solid #1e3a5f;
+    padding-bottom: 2px;
+  }
+  .job-head .company {
+    font-weight: 700;
+    color: #1e3a5f;
+    font-size: 10.8pt;
+  }
+  .job-head .role {
+    color: #c0392b;
+    font-weight: 700;
+    margin-left: 8px;
+    font-size: 10.5pt;
+  }
+  .job-head .date {
+    color: #1e3a5f;
+    font-size: 9.5pt;
+    font-weight: 600;
+  }
+  .job-tag {
+    font-size: 8.8pt;
+    color: #555;
+    margin-bottom: 3px;
+    background: #f4f7fb;
+    padding: 2px 8px;
+    display: inline-block;
+    border-radius: 2px;
+  }
+  .achievement-box {
+    background: #fff8f0;
+    border-left: 3px solid #e67e22;
+    padding: 5px 10px;
+    margin: 4px 0;
+    font-size: 9.5pt;
+    line-height: 1.55;
+  }
+  .achievement-box .ach-title {
+    color: #d35400;
+    font-weight: 700;
+    margin-right: 4px;
+  }
+  .achievement-box ul { list-style: none; padding-left: 0; margin: 0; }
+  .achievement-box li {
+    position: relative;
+    padding-left: 12px;
+    line-height: 1.55;
+  }
+  .achievement-box li::before {
+    content: "★";
+    position: absolute;
+    left: 0;
+    color: #e67e22;
+    font-size: 8pt;
+  }
+  .achievement-box li b { color: #d35400; }
+  .sub-title {
+    font-weight: 700;
+    color: #fff;
+    background: #4a6b8a;
+    font-size: 9.3pt;
+    padding: 1.5px 8px;
+    margin: 4px 0 2px 0;
+    display: inline-block;
+    border-radius: 2px;
+    letter-spacing: 1px;
+  }
+
+  /* Education */
+  .edu-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .edu-head .school {
+    font-weight: 700;
+    color: #1e3a5f;
+    font-size: 10.5pt;
+  }
+  .edu-head .major { color: #2c3e50; font-weight: 600; }
+  .edu-head .date { color: #777; font-size: 9.5pt; }
+  .edu-detail { font-size: 9.5pt; color: #555; line-height: 1.6; }
+  .edu-detail .k { color: #1e3a5f; font-weight: 600; }
+
+  /* Skills */
+  .skill-row {
+    font-size: 9.6pt;
+    line-height: 1.6;
+    margin-bottom: 2px;
+  }
+  .skill-row .k {
+    color: #1e3a5f;
+    font-weight: 700;
+    display: inline-block;
+    min-width: 76px;
+  }
+
+  ul.dot { list-style: none; padding-left: 0; }
+  ul.dot li {
+    position: relative;
+    padding-left: 13px;
+    margin-bottom: 1.5px;
+    line-height: 1.55;
+    font-size: 9.6pt;
+    text-align: justify;
+  }
+  ul.dot li::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: #1e3a5f;
+    font-weight: bold;
+  }
+  ul.dot li b { color: #1e3a5f; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="name-row">
+      <div class="name">孙 晓 燕</div>
+      <div class="name-tag">10 年+ 外资制造业 · 物流关务复合型人才</div>
+    </div>
+    <div class="target">求职方向：物流关务经理 / 进出口合规专家 / 国际物流主管 / 供应链管理</div>
+    <div class="contact-row">
+      <span><span class="label">出生:</span>1989.11</span>
+      <span><span class="label">学历:</span>本科</span>
+      <span><span class="label">现居:</span>青岛市黄岛区</span>
+      <span><span class="label">籍贯:</span>山东青岛</span>
+      <span><span class="label">电话/微信:</span>13370819121</span>
+      <span><span class="label">邮箱:</span>cindy_sun0@163.com</span>
+    </div>
+    <!-- 核心能力标签 -->
+    <div class="skills-tags">
+      <span class="tag">进出口物流统筹</span>
+      <span class="tag">关务合规体系</span>
+      <span class="tag">AEO 持续符合</span>
+      <span class="tag">SAP 主数据</span>
+      <span class="tag">报关行管理</span>
+      <span class="tag">加工贸易/保税</span>
+      <span class="tag">减免税政策</span>
+      <span class="tag">海关稽核应对</span>
+      <span class="tag alt">德语 PGH 八级</span>
+      <span class="tag alt">英语 CET-6</span>
+      <span class="tag lite">500 强 9 年</span>
+    </div>
+  </div>
+
+  <!-- 个人优势 -->
+  <div class="section">
+    <div class="section-title">个 人 优 势</div>
+    <div class="section-body">
+      <div class="intro">
+        深耕外资制造业 <b>10 余年</b>，先后任职于世界 500 强 <b>德国 ThyssenKrupp 集团</b>与<b>显示面板龙头京东方</b>，独立负责进出口物流与关务全链路。精通海/陆/空多式联运、商品归类与申报、AEO 持续符合、加工贸易与保税监管；熟练运用<span class="hl">贸易协定、原产地规则、鼓励类减免税</span>等政策工具，曾<span class="hl">主导申请鼓励类产业项目确认书，为公司争取设备进口关税减免</span>。<b>德语专业八级（PGH）、英语六级</b>，可作为工作语言独立对接海外总部、海关与外籍客户，具备扎实的跨部门协同与海关稽查应对实战经验。
+      </div>
+    </div>
+  </div>
+
+  <!-- 工作经历 -->
+  <div class="section">
+    <div class="section-title">工 作 经 历</div>
+    <div class="section-body">
+
+      <!-- 京东方 -->
+      <div class="job-item">
+        <div class="job-head">
+          <div><span class="company">青岛京东方光电科技有限公司</span><span class="role">物流关务担当</span></div>
+          <div class="date">2023.09 – 至今 ｜ 2 年+</div>
+        </div>
+        <div class="job-tag">行业：显示面板行业龙头（A 股上市）｜ 团队：物流关务部</div>
+
+        <div class="achievement-box">
+          <span class="ach-title">▎ 核心成果</span>
+          <ul>
+            <li>搭建<b>报关行 KPI 量化考核体系</b>，推动服务商申报准确率与响应速度持续提升。</li>
+            <li>主导集团<b>年度 AEO 持续符合内审初审与资料归档</b>，保障企业 AEO 高级认证状态稳定。</li>
+            <li>精细化运用<b>贸易协定与原产地规则</b>，持续优化进口税负，配合业务部门实现合规降本。</li>
+          </ul>
+        </div>
+
+        <div class="sub-title">物 流 与 通 关 操 作</div>
+        <ul class="dot">
+          <li><b>进口物流统筹</b> ｜ 安排设备/备件/原材料/消耗品的海/陆/空运及国外直购、保税园进口模式，持续优化流程与成本。</li>
+          <li><b>设备搬运管理</b> ｜ 跨厂区设备搬迁、内部工具吊装；监督供应商<b>严格符合 EHS 与公司制度</b>。</li>
+          <li><b>运输保险</b> ｜ 主导集团内部分区域货物的投保、付款与理赔全流程。</li>
+        </ul>
+
+        <div class="sub-title">关 务 合 规 与 体 系 管 理</div>
+        <ul class="dot">
+          <li><b>申报规范</b> ｜ 审核商品归类、维护 <b>SAP 主数据</b>，宣导申报变更并处置关务异常。</li>
+          <li><b>报关行管理</b> ｜ 资质审核 + 报关授权 + KPI 考核闭环。</li>
+          <li><b>数据分析</b> ｜ 维护进出口报表，分析进出口额与税款变动，为业务决策提供数据支撑。</li>
+          <li><b>海关对接</b> ｜ 应对稽核查、贸易调查；主动参与关企沟通活动。</li>
+          <li><b>AEO 持续符合</b> ｜ 组织合规内审、开展全员 AEO 培训、按时报送企业年报。</li>
+          <li><b>跨部门协同</b> ｜ 配合供应链审核、质量体系审核、内控与财务审计等。</li>
+        </ul>
+      </div>
+
+      <!-- 德枫丹 -->
+      <div class="job-item">
+        <div class="job-head">
+          <div><span class="company">德枫丹（青岛）机械有限公司</span><span class="role">物流专员</span></div>
+          <div class="date">2014.09 – 2023.09 ｜ 9 年</div>
+        </div>
+        <div class="job-tag">行业：世界 500 强 · 德国蒂森克虏伯 ThyssenKrupp 集团全资子公司 ｜ 业务：高端机电设备制造</div>
+
+        <div class="achievement-box">
+          <span class="ach-title">▎ 核心成果</span>
+          <ul>
+            <li><b>★ 成功申请鼓励类产业项目确认书，实现设备进口关税减免</b>，显著节省采购成本。</li>
+            <li>独立完成 <b>AEO 认证</b>体系建设——文件起草、流程优化、单证存档全流程。</li>
+            <li>通过供应商评估管控与运输方案优化，<b>持续降低报关差错率、提升送达及时率</b>，月度物流成本稳步下降。</li>
+          </ul>
+        </div>
+
+        <div class="sub-title">物 流 与 供 应 商</div>
+        <ul class="dot">
+          <li><b>供应商管理</b> ｜ 筛选报关行与第三方物流商，议定海/空/铁运价并定期评估考核。</li>
+          <li><b>订单与运输</b> ｜ 跟踪生产进度，及时订舱并选择最优运输方案；维护发货跟踪表，处置运输异常。</li>
+          <li><b>包装与成本</b> ｜ 参与包装方案设计；编制月度物流与保险费用报告，紧盯海运行情持续优化。</li>
+        </ul>
+
+        <div class="sub-title">通 关 与 证 照</div>
+        <ul class="dot">
+          <li><b>通关业务</b> ｜ 熟悉新旧机电产品、设备备件、原材料、化学品及危险品的进出口流程与商品归类。</li>
+          <li><b>证照办理</b> ｜ 进出口许可证、免 3C、装运前检验、化学品鉴定、原产地证等全套证书申请。</li>
+          <li><b>加工贸易</b> ｜ 熟悉保税物料管理；配合财务完成出口退税与增值税发票开具。</li>
+        </ul>
+
+        <div class="sub-title">政 策 应 用 与 合 规 体 系</div>
+        <ul class="dot">
+          <li><b>政策红利</b> ｜ 持续跟踪国家进出口优惠政策，主导<b>鼓励类产业项目</b>申报，落地关税减免成本节约。</li>
+          <li><b>后续监管</b> ｜ 减免税设备年报报送、免 3C 货物核销、台账记录等特殊监管货物全周期跟踪。</li>
+          <li><b>体系建设</b> ｜ 参与 AEO 认证；起草并完善进出口文件，规范单证存档。</li>
+        </ul>
+      </div>
+
+      <!-- 信高夫 -->
+      <div class="job-item">
+        <div class="job-head">
+          <div><span class="company">青岛信高夫进出口有限公司</span><span class="role">外贸专员</span></div>
+          <div class="date">2013.07 – 2014.09 ｜ 1 年+</div>
+        </div>
+        <div class="job-tag">行业：进出口贸易 ｜ 主要市场：德国 / 欧洲</div>
+        <ul class="dot">
+          <li><b>订单管理</b> ｜ 客户询价分析、报价、合同签订及订单要求传递与工厂对接。</li>
+          <li><b>物流协同</b> ｜ 跟踪生产进度，与货代、保险公司协调订舱发货；跟踪并确认客户付款。</li>
+          <li><b>德语支持</b> ｜ <b>陪同接待来访德国客户、承担德语类文件翻译</b>，为商务谈判提供语言支持。</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 教育背景 -->
+  <div class="section">
+    <div class="section-title">教 育 背 景</div>
+    <div class="section-body">
+      <div class="edu-head">
+        <div><span class="school">济南大学</span> &nbsp;|&nbsp; <span class="major">德语专业（本科）</span></div>
+        <div class="date">2009.09 – 2013.06</div>
+      </div>
+      <div class="edu-detail">
+        <span class="k">荣誉奖项：</span>国家励志奖学金 1 次 · 校二等奖学金 2 次 · 校三等奖学金 1 次 · "优秀团员"称号 2 次
+      </div>
+    </div>
+  </div>
+
+  <!-- 证书 & 技能 -->
+  <div class="section">
+    <div class="section-title">证 书 与 技 能</div>
+    <div class="section-body">
+      <div class="skill-row"><span class="k">语言能力：</span><b>德语专业八级（PGH）</b> · <b>英语六级（CET-6）</b>，均可作为工作语言独立对接外籍客户与海外总部</div>
+      <div class="skill-row"><span class="k">职业资格：</span>二级企业人力资源管理师</div>
+      <div class="skill-row"><span class="k">关务专长：</span>进出口商品归类 · AEO 高级认证体系 · 加工贸易 / 保税监管 · 减免税设备管理 · 原产地规则 · 出口退税</div>
+      <div class="skill-row"><span class="k">系统工具：</span>SAP（主数据维护）· 中国国际贸易单一窗口 · Office 全家桶（高级 Excel 数据分析与报表）</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

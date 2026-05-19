@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>代树坤 - CYBER.RESUME // v2077</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @page { size: A4; margin: 0; }
+
+  :root {
+    --bg: #0a0e14;
+    --bg-1: #0f1620;
+    --bg-2: #131c28;
+    --grid: #1b2a3a;
+    --cyan: #00f0ff;
+    --magenta: #ff2e93;
+    --purple: #b14aff;
+    --yellow: #f7ff3c;
+    --green: #2dffb0;
+    --txt: #d6e6f5;
+    --muted: #6a8aa6;
+    --line: #1f3550;
+  }
+
+  html, body {
+    font-family: "JetBrains Mono", "Fira Code", "SF Mono", "Menlo", "Consolas",
+                 "PingFang SC", "Microsoft YaHei", monospace;
+    color: var(--txt);
+    font-size: 9.4pt;
+    line-height: 1.55;
+    background: var(--bg);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 9mm 11mm 8mm 11mm;
+    position: relative;
+    background:
+      linear-gradient(rgba(0,240,255,0.025) 1px, transparent 1px) 0 0 / 100% 4mm,
+      linear-gradient(90deg, rgba(255,46,147,0.018) 1px, transparent 1px) 0 0 / 4mm 100%,
+      radial-gradient(ellipse at top right, rgba(177,74,255,0.12), transparent 55%),
+      radial-gradient(ellipse at bottom left, rgba(0,240,255,0.10), transparent 55%),
+      var(--bg);
+  }
+
+  /* 角标装饰（四角的 L 形） */
+  .corner {
+    position: absolute;
+    width: 14mm;
+    height: 14mm;
+    pointer-events: none;
+  }
+  .corner.tl { top: 4mm; left: 4mm; border-top: 2px solid var(--cyan); border-left: 2px solid var(--cyan); }
+  .corner.tr { top: 4mm; right: 4mm; border-top: 2px solid var(--magenta); border-right: 2px solid var(--magenta); }
+  .corner.bl { bottom: 4mm; left: 4mm; border-bottom: 2px solid var(--magenta); border-left: 2px solid var(--magenta); }
+  .corner.br { bottom: 4mm; right: 4mm; border-bottom: 2px solid var(--cyan); border-right: 2px solid var(--cyan); }
+
+  /* 顶部状态栏 */
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 7.8pt;
+    color: var(--muted);
+    letter-spacing: 1.5px;
+    margin-bottom: 6px;
+    padding: 0 2mm;
+  }
+  .topbar .left span { color: var(--green); }
+  .topbar .right span { color: var(--cyan); }
+  .topbar .blink {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: var(--green);
+    border-radius: 50%;
+    margin-right: 4px;
+    box-shadow: 0 0 6px var(--green);
+  }
+
+  /* ===== HEADER ===== */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 36mm;
+    gap: 10mm;
+    align-items: center;
+    padding: 6mm 5mm 6mm 6mm;
+    margin-bottom: 6mm;
+    background: linear-gradient(135deg, rgba(0,240,255,0.06), rgba(255,46,147,0.06));
+    border: 1px solid var(--cyan);
+    box-shadow: 0 0 0 1px var(--bg), 0 0 14px rgba(0,240,255,0.18) inset;
+    position: relative;
+    clip-path: polygon(0 0, calc(100% - 8mm) 0, 100% 8mm, 100% 100%, 8mm 100%, 0 calc(100% - 8mm));
+  }
+
+  .header .id-tag {
+    position: absolute;
+    top: 0;
+    left: 8mm;
+    background: var(--cyan);
+    color: var(--bg);
+    font-size: 7.5pt;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 2px 8px;
+  }
+  .header .ver-tag {
+    position: absolute;
+    bottom: 0;
+    right: 8mm;
+    background: var(--magenta);
+    color: var(--bg);
+    font-size: 7.5pt;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 2px 8px;
+  }
+
+  .name-zh {
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-size: 30pt;
+    font-weight: 900;
+    color: var(--cyan);
+    letter-spacing: 8px;
+    line-height: 1;
+    text-shadow:
+      2px 0 0 var(--magenta),
+      -2px 0 0 var(--purple),
+      0 0 18px rgba(0,240,255,0.55);
+    margin-bottom: 4px;
+  }
+  .name-en {
+    font-size: 9pt;
+    color: var(--muted);
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+  }
+  .name-en .slash { color: var(--magenta); margin: 0 6px; }
+
+  .role {
+    font-size: 11pt;
+    color: var(--yellow);
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  .role::before {
+    content: ">> ";
+    color: var(--green);
+  }
+  .role .pipe { color: var(--magenta); margin: 0 6px; font-weight: 400; }
+
+  .contact {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px 10px;
+    font-size: 8.5pt;
+    color: var(--txt);
+  }
+  .contact div { white-space: nowrap; }
+  .contact .lbl {
+    color: var(--magenta);
+    font-weight: 700;
+    margin-right: 5px;
+  }
+  .contact .lbl::before { content: "["; color: var(--cyan); margin-right: 1px; }
+  .contact .lbl::after { content: "]"; color: var(--cyan); margin-left: 1px; }
+
+  /* 头像 — 故障风 */
+  .avatar-frame {
+    position: relative;
+    width: 36mm;
+    height: 44mm;
+    padding: 2px;
+    background:
+      linear-gradient(135deg, var(--cyan), var(--magenta), var(--purple));
+    clip-path: polygon(0 0, calc(100% - 4mm) 0, 100% 4mm, 100% 100%, 4mm 100%, 0 calc(100% - 4mm));
+  }
+  .avatar-frame::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(0deg, rgba(0,0,0,0.2) 0 1px, transparent 1px 3px);
+    pointer-events: none;
+    z-index: 2;
+    clip-path: polygon(0 0, calc(100% - 4mm) 0, 100% 4mm, 100% 100%, 4mm 100%, 0 calc(100% - 4mm));
+  }
+  .avatar-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    filter: contrast(1.05) saturate(0.85) hue-rotate(-6deg);
+    clip-path: polygon(0 0, calc(100% - 3.5mm) 0, 100% 3.5mm, 100% 100%, 3.5mm 100%, 0 calc(100% - 3.5mm));
+  }
+  .avatar-frame .scan {
+    position: absolute;
+    left: 0; right: 0;
+    top: 30%;
+    height: 2px;
+    background: var(--cyan);
+    box-shadow: 0 0 6px var(--cyan);
+    opacity: 0.55;
+    z-index: 3;
+  }
+
+  /* ===== Section ===== */
+  .section { margin-bottom: 5mm; }
+  .sec-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 5px;
+  }
+  .sec-head .bracket {
+    color: var(--cyan);
+    font-weight: 700;
+    font-size: 11pt;
+  }
+  .sec-head .num {
+    color: var(--magenta);
+    font-size: 9pt;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .sec-head .title-zh {
+    font-family: "PingFang SC", sans-serif;
+    color: #fff;
+    font-size: 12pt;
+    font-weight: 800;
+    letter-spacing: 4px;
+  }
+  .sec-head .title-en {
+    color: var(--cyan);
+    font-size: 8pt;
+    letter-spacing: 2.5px;
+    font-weight: 600;
+  }
+  .sec-head .rule {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--cyan), transparent);
+  }
+  .sec-head .end {
+    color: var(--magenta);
+    font-size: 9pt;
+    letter-spacing: 1px;
+  }
+
+  /* INTRO 框 */
+  .intro {
+    background: linear-gradient(180deg, rgba(0,240,255,0.06), rgba(177,74,255,0.04));
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--cyan);
+    padding: 7px 11px 7px 14px;
+    font-family: "PingFang SC", sans-serif;
+    font-size: 9.5pt;
+    line-height: 1.7;
+    text-align: justify;
+    color: var(--txt);
+    position: relative;
+  }
+  .intro::before {
+    content: "// PROFILE.dat";
+    position: absolute;
+    top: -8px;
+    left: 10px;
+    background: var(--bg);
+    color: var(--magenta);
+    font-size: 7.5pt;
+    padding: 0 6px;
+    letter-spacing: 1.5px;
+    font-family: "JetBrains Mono", monospace;
+  }
+  .intro b { color: var(--cyan); }
+  .intro .hl { color: var(--magenta); font-weight: 700; }
+
+  /* 卡片（教育/项目通用） */
+  .card {
+    background: linear-gradient(180deg, var(--bg-1), var(--bg-2));
+    border: 1px solid var(--line);
+    padding: 6px 10px 7px 10px;
+    margin-bottom: 5px;
+    position: relative;
+  }
+  .card::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--cyan), var(--magenta));
+  }
+  .card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 3px;
+  }
+  .card-head .title {
+    font-family: "PingFang SC", sans-serif;
+    color: var(--cyan);
+    font-weight: 700;
+    font-size: 10.8pt;
+    letter-spacing: 0.5px;
+  }
+  .card-head .sub {
+    font-family: "PingFang SC", sans-serif;
+    color: var(--txt);
+    font-weight: 600;
+    font-size: 9.6pt;
+  }
+  .card-head .sub::before { content: "// "; color: var(--muted); }
+  .card-head .date {
+    font-family: "JetBrains Mono", monospace;
+    color: var(--bg);
+    background: var(--yellow);
+    font-size: 8pt;
+    font-weight: 700;
+    padding: 1px 7px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    clip-path: polygon(2mm 0, 100% 0, calc(100% - 2mm) 100%, 0 100%);
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .card-body {
+    font-family: "PingFang SC", sans-serif;
+    font-size: 9.4pt;
+    line-height: 1.65;
+    color: var(--txt);
+  }
+  .card-body .k {
+    color: var(--magenta);
+    font-weight: 700;
+    margin-right: 4px;
+  }
+  .card-body .k::before { content: "▸ "; color: var(--cyan); }
+
+  ul.dot {
+    list-style: none;
+    padding-left: 4px;
+    margin-top: 1px;
+  }
+  ul.dot li {
+    position: relative;
+    padding-left: 16px;
+    margin-bottom: 1px;
+    font-family: "PingFang SC", sans-serif;
+    font-size: 9.3pt;
+    line-height: 1.6;
+  }
+  ul.dot li::before {
+    content: ">_";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--cyan);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 8.5pt;
+    font-weight: 700;
+  }
+
+  /* 论文 */
+  .papers { display: grid; gap: 4px; }
+  .paper {
+    background: var(--bg-1);
+    border: 1px solid var(--line);
+    padding: 5px 9px;
+    font-family: "PingFang SC", sans-serif;
+    font-size: 9.3pt;
+    line-height: 1.55;
+    position: relative;
+    padding-left: 30px;
+  }
+  .paper::before {
+    content: "PUB";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 24px;
+    background: var(--magenta);
+    color: var(--bg);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 7.5pt;
+    font-weight: 800;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .paper:nth-child(2)::before {
+    background: var(--cyan);
+    content: "002";
+  }
+  .paper:nth-child(1)::before { content: "001"; background: var(--cyan); }
+  .paper i { color: var(--txt); }
+  .paper .journal {
+    color: var(--yellow);
+    font-weight: 700;
+  }
+  .paper .role {
+    color: var(--magenta);
+    font-weight: 700;
+    border: 1px solid var(--magenta);
+    padding: 0 5px;
+    font-size: 8.5pt;
+  }
+
+  /* 技能 — 标签云 */
+  .skill-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px 10px;
+  }
+  .skill-block {
+    background: var(--bg-1);
+    border: 1px solid var(--line);
+    padding: 6px 9px;
+  }
+  .skill-block .sk-title {
+    font-family: "JetBrains Mono", monospace;
+    color: var(--cyan);
+    font-size: 8.3pt;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+    padding-bottom: 3px;
+    border-bottom: 1px dashed var(--line);
+  }
+  .skill-block .sk-title::before { content: "<"; color: var(--magenta); }
+  .skill-block .sk-title::after { content: " />"; color: var(--magenta); }
+
+  .tag {
+    display: inline-block;
+    font-family: "PingFang SC", sans-serif;
+    font-size: 8.5pt;
+    color: var(--cyan);
+    border: 1px solid var(--cyan);
+    padding: 1px 7px;
+    margin: 0 3px 3px 0;
+    background: rgba(0,240,255,0.06);
+    line-height: 1.4;
+  }
+  .tag.m {
+    color: var(--magenta);
+    border-color: var(--magenta);
+    background: rgba(255,46,147,0.06);
+  }
+  .tag.y {
+    color: var(--yellow);
+    border-color: var(--yellow);
+    background: rgba(247,255,60,0.06);
+  }
+  .tag.g {
+    color: var(--green);
+    border-color: var(--green);
+    background: rgba(45,255,176,0.06);
+  }
+
+  /* 底部署名 */
+  .footer-sig {
+    margin-top: 6mm;
+    text-align: center;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 7.5pt;
+    color: var(--muted);
+    letter-spacing: 3px;
+  }
+  .footer-sig .c { color: var(--cyan); }
+  .footer-sig .m { color: var(--magenta); }
+</style>
+</head>
+<body>
+<div class="page">
+  <span class="corner tl"></span>
+  <span class="corner tr"></span>
+  <span class="corner bl"></span>
+  <span class="corner br"></span>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="left"><span class="blink"></span>SYS://CV.LOAD <span>OK</span> &nbsp; UID-026 &nbsp; SECTOR-QINGDAO</div>
+    <div class="right">2026-Q2 <span>//</span> RESUME.exe <span>v2.077</span></div>
+  </div>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="id-tag">ID // CV-026</div>
+    <div class="ver-tag">v2077.04</div>
+
+    <div>
+      <div class="name-zh">代树坤</div>
+      <div class="name-en">DAI <span class="slash">//</span> SHU <span class="slash">//</span> KUN</div>
+      <div class="role">基因编辑研发<span class="pipe">|</span>水产生物育种<span class="pipe">|</span>分子生物学研究</div>
+      <div class="contact">
+        <div><span class="lbl">PHONE</span>17860797119</div>
+        <div><span class="lbl">MAIL</span>17860797119@163.com</div>
+        <div><span class="lbl">EDU</span>硕士研究生</div>
+        <div><span class="lbl">LOC</span>山东 · 青岛</div>
+      </div>
+    </div>
+
+    <div class="avatar-frame">
+      <span class="scan"></span>
+      <img src="avatar.jpg" alt="证件照">
+    </div>
+  </div>
+
+  <!-- INTRO -->
+  <div class="section">
+    <div class="sec-head">
+      <span class="bracket">[</span>
+      <span class="num">00</span>
+      <span class="title-zh">个人简介</span>
+      <span class="title-en">// PROFILE</span>
+      <span class="rule"></span>
+      <span class="end">]_END</span>
+    </div>
+    <div class="intro">
+      中国海洋大学生物技术与工程专业 <b>2026 届应届硕士</b>，本科水生动物医学专业，具备<span class="hl">"海洋生物基因编辑 + 水产疫病检测"复合技术背景</span>。硕士期间独立完成 CRISPR/Cas9 基因编辑体系的开发与全流程验证，熟练掌握分子生物学全链条实验技能；以共同作者身份发表 SCI 论文 1 篇、中文核心 1 篇。可独立承担科研项目的方案设计、实验执行与成果总结，具备较强的问题解决能力与项目落地能力。
+    </div>
+  </div>
+
+  <!-- EDUCATION -->
+  <div class="section">
+    <div class="sec-head">
+      <span class="bracket">[</span>
+      <span class="num">01</span>
+      <span class="title-zh">教育背景</span>
+      <span class="title-en">// EDUCATION</span>
+      <span class="rule"></span>
+      <span class="end">]_END</span>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <span class="title">中国海洋大学</span> &nbsp;<span class="sub">生物技术与工程（硕士研究生）</span>
+        </div>
+        <div class="date">2023.09 → 2026.06</div>
+      </div>
+      <div class="card-body">
+        <div><span class="k">研究方向</span>基于电穿孔的侏儒蛤 CRISPR/Cas9 基因编辑技术的建立及优化</div>
+        <div><span class="k">核心课程</span>发育生物学、现代海洋生物学、海洋生物学、高等生物化学、分子生物学、细胞生物学</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <span class="title">青岛农业大学</span> &nbsp;<span class="sub">水生动物医学（本科）</span>
+        </div>
+        <div class="date">2019.09 → 2023.06</div>
+      </div>
+      <div class="card-body">
+        <div><span class="k">研究方向</span>杀鲑气单胞菌 LAMP 快速检测技术的建立及应用</div>
+        <div><span class="k">核心课程</span>动植物学、微生物学、水生生物学、海洋化学、海洋学、生态学、生物信息学</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESEARCH -->
+  <div class="section">
+    <div class="sec-head">
+      <span class="bracket">[</span>
+      <span class="num">02</span>
+      <span class="title-zh">科研经历</span>
+      <span class="title-en">// RESEARCH.LOG</span>
+      <span class="rule"></span>
+      <span class="end">]_END</span>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <span class="title">侏儒蛤 CRISPR/Cas9 基因编辑技术建立及优化</span> &nbsp;<span class="sub">硕士课题</span>
+        </div>
+        <div class="date">2023.09 → NOW</div>
+      </div>
+      <div class="card-body">
+        <div><span class="k">项目背景</span>针对海洋双壳贝类显微注射门槛高、基因编辑效率低等行业痛点，开发电穿孔介导的 CRISPR/Cas9 编辑体系，为贝类遗传育种提供低成本、易推广的技术方案。</div>
+        <ul class="dot">
+          <li>独立完成国内外双壳贝类基因编辑相关文献调研，梳理行业技术瓶颈，设计电穿孔条件梯度优化方案；</li>
+          <li>独立完成 sgRNA 靶点设计与体外转录、电穿孔体系优化、qRT-PCR、原位杂交等全流程实验；</li>
+          <li>熟练操作电转仪、荧光显微镜、分光光度计等核心仪器，攻克侏儒蛤"电穿孔存活率与编辑效率平衡"的关键技术难题；</li>
+          <li>独立撰写硕士毕业论文，相关研究成果以共同作者形式发表于 Aquaculture（SCI）。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div>
+          <span class="title">杀鲑气单胞菌 LAMP 快速检测技术建立及应用</span> &nbsp;<span class="sub">本科课题</span>
+        </div>
+        <div class="date">2019.09 → 2023.06</div>
+      </div>
+      <div class="card-body">
+        <div><span class="k">项目背景</span>针对水产养殖中传统 PCR 检测周期长、依赖专业仪器、无法现场检测的痛点，建立基于等温扩增（LAMP）的杀鲑气单胞菌快速检测体系。</div>
+        <ul class="dot">
+          <li>独立完成致病菌特异性靶点筛选、引物设计与优化，搭建并优化 LAMP 检测反应体系；</li>
+          <li>完成体系的灵敏度与特异性验证，相比传统 PCR 大幅缩短检测时间，且无需专业仪器，适配水产现场快速检测场景；</li>
+          <li>熟练操作 PCR 仪、电泳仪等实验仪器，独立完成本科毕业论文全流程撰写。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- PUBLICATIONS -->
+  <div class="section">
+    <div class="sec-head">
+      <span class="bracket">[</span>
+      <span class="num">03</span>
+      <span class="title-zh">论文发表</span>
+      <span class="title-en">// PUBLICATIONS</span>
+      <span class="rule"></span>
+      <span class="end">]_END</span>
+    </div>
+    <div class="papers">
+      <div class="paper">
+        <i>Electroporation-mediated exogenous gene delivery methodology into germ cells of the scallop, Chlamys farreri</i>，<span class="journal">Aquaculture</span>（SCI 期刊），<span class="role">第四作者</span>
+      </div>
+      <div class="paper">
+        《侏儒蛤电穿孔转染体系的建立及优化》，<span class="journal">水产科学</span>（中文核心），<span class="role">第二作者</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SKILLS -->
+  <div class="section">
+    <div class="sec-head">
+      <span class="bracket">[</span>
+      <span class="num">04</span>
+      <span class="title-zh">专业技能</span>
+      <span class="title-en">// SKILL.STACK</span>
+      <span class="rule"></span>
+      <span class="end">]_END</span>
+    </div>
+    <div class="skill-section">
+
+      <div class="skill-block">
+        <div class="sk-title">EXPERIMENT</div>
+        <span class="tag">CRISPR/Cas9</span>
+        <span class="tag">电穿孔转染</span>
+        <span class="tag">原位杂交</span>
+        <span class="tag">PCR / qRT-PCR</span>
+        <span class="tag">分子克隆</span>
+        <span class="tag">载体构建</span>
+        <span class="tag">核酸提取与纯化</span>
+        <span class="tag">蛋白诱导与纯化</span>
+        <span class="tag">细胞培养与转染</span>
+      </div>
+
+      <div class="skill-block">
+        <div class="sk-title">SOFTWARE</div>
+        <span class="tag m">ImageJ</span>
+        <span class="tag m">GraphPad Prism</span>
+        <span class="tag m">Primer Premier 5</span>
+        <span class="tag m">SPSS</span>
+        <span class="tag m">SnapGene</span>
+        <span class="tag m">AlphaFold3</span>
+        <span class="tag m">分子对接</span>
+
+        <div class="sk-title" style="margin-top:6px;">LANGUAGE</div>
+        <span class="tag y">中文 · 母语</span>
+        <span class="tag y">英语 · CET-4</span>
+        <span class="tag g">阅读 SCI 文献</span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer-sig">
+    <span class="c">[</span>&nbsp;END_OF_FILE&nbsp;<span class="m">//</span>&nbsp;CV.DAI_SHU_KUN.2026&nbsp;<span class="c">]</span>
+  </div>
+
+</div>
+</body>
+</html>

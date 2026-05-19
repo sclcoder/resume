@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>代树坤 - 简历（双栏现代版）</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @page { size: A4; margin: 0; }
+  html, body {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Source Han Sans CN", sans-serif;
+    color: #2b2b2b;
+    font-size: 9.8pt;
+    line-height: 1.55;
+    background: #fff;
+  }
+
+  /* ===== 颜色变量（新配色：墨绿 + 暖铜） ===== */
+  :root {
+    --sidebar: #1f3a34;       /* 深墨绿 */
+    --sidebar-soft: #2a4d45;  /* 次深 */
+    --accent: #b8794a;        /* 暖铜色 */
+    --accent-soft: #d9b48e;   /* 浅铜 */
+    --ink: #1f2a28;           /* 主文字 */
+    --muted: #6b7672;         /* 辅助文字 */
+    --line: #e2e6e3;          /* 分隔线 */
+    --bg-soft: #f6f4ef;       /* 米色底 */
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    display: grid;
+    grid-template-columns: 70mm 1fr;
+    background: #fff;
+  }
+
+  /* ===== 左侧栏 ===== */
+  .sidebar {
+    background: var(--sidebar);
+    color: #ecebe5;
+    padding: 12mm 8mm 10mm 9mm;
+  }
+  .avatar-wrap {
+    width: 42mm;
+    height: 42mm;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 8mm auto;
+    border: 3px solid var(--accent);
+    box-shadow: 0 0 0 2px var(--sidebar);
+  }
+  .avatar-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+
+  .side-block { margin-bottom: 7mm; }
+  .side-title {
+    font-size: 10pt;
+    font-weight: 700;
+    color: var(--accent-soft);
+    letter-spacing: 3px;
+    padding-bottom: 3px;
+    margin-bottom: 6px;
+    border-bottom: 1px solid var(--accent);
+    text-transform: uppercase;
+  }
+  .side-title .cn {
+    color: #fff;
+    font-size: 10.5pt;
+    margin-right: 6px;
+    letter-spacing: 2px;
+  }
+
+  .info-line {
+    font-size: 8.8pt;
+    line-height: 1.7;
+    color: #d8dad4;
+    word-break: break-all;
+  }
+  .info-line .label {
+    color: var(--accent-soft);
+    font-weight: 600;
+    display: inline-block;
+    min-width: 32px;
+    margin-right: 3px;
+  }
+
+  .skill-tag {
+    display: inline-block;
+    background: var(--sidebar-soft);
+    color: #ecebe5;
+    border: 1px solid #3a5a52;
+    padding: 2px 8px;
+    margin: 0 3px 4px 0;
+    font-size: 8.5pt;
+    border-radius: 10px;
+    line-height: 1.4;
+  }
+  .skill-group { margin-bottom: 5px; }
+  .skill-group-title {
+    font-size: 8.8pt;
+    color: var(--accent-soft);
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+
+  .lang-item {
+    font-size: 8.8pt;
+    line-height: 1.65;
+    color: #d8dad4;
+  }
+  .lang-item b { color: #fff; }
+
+  /* ===== 主内容区 ===== */
+  .main {
+    padding: 12mm 11mm 10mm 11mm;
+    background: #fff;
+  }
+
+  .name-block {
+    margin-bottom: 6mm;
+    padding-bottom: 5mm;
+    border-bottom: 2px solid var(--ink);
+    position: relative;
+  }
+  .name-block::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 30mm;
+    height: 2px;
+    background: var(--accent);
+  }
+  .name {
+    font-size: 28pt;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: 6px;
+    line-height: 1.1;
+  }
+  .name .last { color: var(--accent); }
+  .target {
+    font-size: 10pt;
+    color: var(--muted);
+    font-weight: 500;
+    margin-top: 4px;
+    letter-spacing: 1px;
+  }
+  .target .dot {
+    color: var(--accent);
+    margin: 0 6px;
+  }
+
+  /* 主区段标题 */
+  .m-section { margin-bottom: 4mm; }
+  .m-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 5px;
+  }
+  .m-title .icon {
+    width: 14px;
+    height: 14px;
+    background: var(--accent);
+    border-radius: 2px;
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+  .m-title .txt {
+    font-size: 12pt;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: 3px;
+  }
+  .m-title .en {
+    font-size: 8pt;
+    color: var(--muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-left: 4px;
+    font-weight: 500;
+  }
+  .m-title .rule {
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+
+  /* 自我介绍 */
+  .intro {
+    background: var(--bg-soft);
+    padding: 7px 11px;
+    font-size: 9.5pt;
+    line-height: 1.7;
+    text-align: justify;
+    border-radius: 3px;
+    border-left: 3px solid var(--accent);
+  }
+  .intro b { color: var(--sidebar); }
+  .intro .hl { color: var(--accent); font-weight: 700; }
+
+  /* 教育 / 经历 — 时间线 */
+  .timeline {
+    position: relative;
+    padding-left: 14px;
+  }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 6px;
+    bottom: 4px;
+    width: 1px;
+    background: var(--line);
+  }
+  .tl-item {
+    position: relative;
+    margin-bottom: 5px;
+  }
+  .tl-item::before {
+    content: "";
+    position: absolute;
+    left: -14px;
+    top: 6px;
+    width: 9px;
+    height: 9px;
+    background: #fff;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+  }
+  .tl-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 2px;
+    gap: 8px;
+  }
+  .tl-head .title {
+    font-weight: 700;
+    color: var(--sidebar);
+    font-size: 10.5pt;
+  }
+  .tl-head .sub {
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 9.8pt;
+  }
+  .tl-head .date {
+    color: var(--accent);
+    font-size: 9pt;
+    font-weight: 600;
+    white-space: nowrap;
+    background: var(--bg-soft);
+    padding: 1px 7px;
+    border-radius: 8px;
+  }
+  .tl-detail {
+    font-size: 9.4pt;
+    color: #3a3a3a;
+    line-height: 1.6;
+  }
+  .tl-detail .k {
+    color: var(--sidebar);
+    font-weight: 700;
+  }
+
+  /* 项目内的列表 */
+  ul.dot {
+    list-style: none;
+    padding-left: 2px;
+    margin-top: 1px;
+  }
+  ul.dot li {
+    position: relative;
+    padding-left: 13px;
+    margin-bottom: 1px;
+    line-height: 1.6;
+    font-size: 9.3pt;
+  }
+  ul.dot li::before {
+    content: "▪";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--accent);
+    font-weight: bold;
+  }
+
+  /* 论文 */
+  .paper-list { padding-left: 0; }
+  .paper-item {
+    font-size: 9.3pt;
+    line-height: 1.6;
+    padding: 2px 0 2px 16px;
+    position: relative;
+  }
+  .paper-item::before {
+    content: "❖";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+  .paper-item i {
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .paper-item .journal {
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .paper-item .role {
+    color: var(--sidebar);
+    font-weight: 700;
+    background: var(--bg-soft);
+    padding: 0 5px;
+    border-radius: 3px;
+    font-size: 8.8pt;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ============ 左侧栏 ============ -->
+  <aside class="sidebar">
+
+    <div class="avatar-wrap">
+      <img src="avatar.jpg" alt="证件照">
+    </div>
+
+    <!-- 联系方式 -->
+    <div class="side-block">
+      <div class="side-title"><span class="cn">联系方式</span>CONTACT</div>
+      <div class="info-line"><span class="label">电话</span>17860797119</div>
+      <div class="info-line"><span class="label">邮箱</span>17860797119@163.com</div>
+      <div class="info-line"><span class="label">地址</span>山东青岛</div>
+      <div class="info-line"><span class="label">学历</span>硕士研究生</div>
+    </div>
+
+    <!-- 专业技能 -->
+    <div class="side-block">
+      <div class="side-title"><span class="cn">专业技能</span>SKILLS</div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">实验技能</div>
+        <span class="skill-tag">CRISPR/Cas9</span>
+        <span class="skill-tag">电穿孔转染</span>
+        <span class="skill-tag">原位杂交</span>
+        <span class="skill-tag">PCR / qRT-PCR</span>
+        <span class="skill-tag">分子克隆</span>
+        <span class="skill-tag">载体构建</span>
+        <span class="skill-tag">核酸提取</span>
+        <span class="skill-tag">蛋白纯化</span>
+        <span class="skill-tag">细胞培养</span>
+      </div>
+
+      <div class="skill-group" style="margin-top:6px;">
+        <div class="skill-group-title">科研软件</div>
+        <span class="skill-tag">ImageJ</span>
+        <span class="skill-tag">GraphPad Prism</span>
+        <span class="skill-tag">Primer Premier 5</span>
+        <span class="skill-tag">SPSS</span>
+        <span class="skill-tag">SnapGene</span>
+        <span class="skill-tag">AlphaFold3</span>
+      </div>
+    </div>
+
+    <!-- 语言 -->
+    <div class="side-block">
+      <div class="side-title"><span class="cn">语言能力</span>LANGUAGES</div>
+      <div class="lang-item">
+        <b>中文</b> · 母语<br>
+        <b>英语</b> · CET-4，可熟练阅读英文 SCI 专业文献
+      </div>
+    </div>
+
+    <!-- 核心标签 -->
+    <div class="side-block">
+      <div class="side-title"><span class="cn">核心关键词</span>KEYWORDS</div>
+      <span class="skill-tag">海洋生物</span>
+      <span class="skill-tag">基因编辑</span>
+      <span class="skill-tag">水产育种</span>
+      <span class="skill-tag">疫病检测</span>
+      <span class="skill-tag">分子生物学</span>
+      <span class="skill-tag">独立科研</span>
+    </div>
+
+  </aside>
+
+  <!-- ============ 主内容区 ============ -->
+  <main class="main">
+
+    <!-- 姓名 / 求职方向 -->
+    <div class="name-block">
+      <div class="name">代树<span class="last">坤</span></div>
+      <div class="target">
+        基因编辑研发<span class="dot">◆</span>水产生物育种<span class="dot">◆</span>分子生物学研究
+      </div>
+    </div>
+
+    <!-- 自我介绍 -->
+    <div class="m-section">
+      <div class="m-title">
+        <div class="icon"></div>
+        <div class="txt">个人简介</div>
+        <div class="en">PROFILE</div>
+        <div class="rule"></div>
+      </div>
+      <div class="intro">
+        中国海洋大学生物技术与工程专业 <b>2026 届应届硕士</b>，本科水生动物医学专业，具备<span class="hl">"海洋生物基因编辑 + 水产疫病检测"复合技术背景</span>。硕士期间独立完成 CRISPR/Cas9 基因编辑体系的开发与全流程验证，熟练掌握分子生物学全链条实验技能；以共同作者身份发表 SCI 论文 1 篇、中文核心 1 篇。可独立承担科研项目的方案设计、实验执行与成果总结，具备较强的问题解决能力与项目落地能力。
+      </div>
+    </div>
+
+    <!-- 教育背景 -->
+    <div class="m-section">
+      <div class="m-title">
+        <div class="icon"></div>
+        <div class="txt">教育背景</div>
+        <div class="en">EDUCATION</div>
+        <div class="rule"></div>
+      </div>
+      <div class="timeline">
+
+        <div class="tl-item">
+          <div class="tl-head">
+            <div><span class="title">中国海洋大学</span> &nbsp;<span class="sub">生物技术与工程（硕士研究生）</span></div>
+            <div class="date">2023.09 – 2026.06</div>
+          </div>
+          <div class="tl-detail">
+            <div><span class="k">研究方向：</span>基于电穿孔的侏儒蛤 CRISPR/Cas9 基因编辑技术的建立及优化</div>
+            <div><span class="k">核心课程：</span>发育生物学、现代海洋生物学、海洋生物学、高等生物化学、分子生物学、细胞生物学</div>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-head">
+            <div><span class="title">青岛农业大学</span> &nbsp;<span class="sub">水生动物医学（本科）</span></div>
+            <div class="date">2019.09 – 2023.06</div>
+          </div>
+          <div class="tl-detail">
+            <div><span class="k">研究方向：</span>杀鲑气单胞菌 LAMP 快速检测技术的建立及应用</div>
+            <div><span class="k">核心课程：</span>动植物学、微生物学、水生生物学、海洋化学、海洋学、生态学、生物信息学</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 科研经历 -->
+    <div class="m-section">
+      <div class="m-title">
+        <div class="icon"></div>
+        <div class="txt">科研经历</div>
+        <div class="en">RESEARCH</div>
+        <div class="rule"></div>
+      </div>
+      <div class="timeline">
+
+        <div class="tl-item">
+          <div class="tl-head">
+            <div><span class="title">侏儒蛤 CRISPR/Cas9 基因编辑技术建立及优化</span> &nbsp;<span class="sub">硕士课题</span></div>
+            <div class="date">2023.09 – 至今</div>
+          </div>
+          <div class="tl-detail">
+            <div><span class="k">项目背景：</span>针对海洋双壳贝类显微注射门槛高、基因编辑效率低等行业痛点，开发电穿孔介导的 CRISPR/Cas9 编辑体系，为贝类遗传育种提供低成本、易推广的技术方案。</div>
+            <ul class="dot">
+              <li>独立完成国内外双壳贝类基因编辑相关文献调研，梳理行业技术瓶颈，设计电穿孔条件梯度优化方案；</li>
+              <li>独立完成 sgRNA 靶点设计与体外转录、电穿孔体系优化、qRT-PCR、原位杂交等全流程实验；</li>
+              <li>熟练操作电转仪、荧光显微镜、分光光度计等核心仪器，攻克侏儒蛤"电穿孔存活率与编辑效率平衡"的关键技术难题；</li>
+              <li>独立撰写硕士毕业论文，相关研究成果以共同作者形式发表于 Aquaculture（SCI）。</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-head">
+            <div><span class="title">杀鲑气单胞菌 LAMP 快速检测技术建立及应用</span> &nbsp;<span class="sub">本科课题</span></div>
+            <div class="date">2019.09 – 2023.06</div>
+          </div>
+          <div class="tl-detail">
+            <div><span class="k">项目背景：</span>针对水产养殖中传统 PCR 检测周期长、依赖专业仪器、无法现场检测的痛点，建立基于等温扩增（LAMP）的杀鲑气单胞菌快速检测体系。</div>
+            <ul class="dot">
+              <li>独立完成致病菌特异性靶点筛选、引物设计与优化，搭建并优化 LAMP 检测反应体系；</li>
+              <li>完成体系的灵敏度与特异性验证，相比传统 PCR 大幅缩短检测时间，且无需专业仪器，适配水产现场快速检测场景；</li>
+              <li>熟练操作 PCR 仪、电泳仪等实验仪器，独立完成本科毕业论文全流程撰写。</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 论文发表 -->
+    <div class="m-section">
+      <div class="m-title">
+        <div class="icon"></div>
+        <div class="txt">论文发表</div>
+        <div class="en">PUBLICATIONS</div>
+        <div class="rule"></div>
+      </div>
+      <div class="paper-list">
+        <div class="paper-item">
+          <i>Electroporation-mediated exogenous gene delivery methodology into germ cells of the scallop, Chlamys farreri</i>，<span class="journal">Aquaculture</span>（SCI 期刊），<span class="role">第四作者</span>
+        </div>
+        <div class="paper-item">
+          《侏儒蛤电穿孔转染体系的建立及优化》，<span class="journal">水产科学</span>（中文核心），<span class="role">第二作者</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+</body>
+</html>
